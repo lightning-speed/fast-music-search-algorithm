@@ -1,0 +1,14 @@
+{
+  "name": "song-identifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "main": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "web-audio-api": "^0.2.2"
+  }
+}
