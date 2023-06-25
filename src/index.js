@@ -4,9 +4,10 @@ const Database = require("./Database");
 
 var db;
 function start() {
-    const printInfo = false;
+    const printInfo = true;
     const addingData = false;
     const samplesFolder = "samples/";
+
     db = new Database("db.json", async (dbx) => {
 
         if (addingData) {
@@ -20,11 +21,9 @@ function start() {
         }
         else {
             Identifier.benchmark(async () => {
-                await find(samplesFolder + "1.mp3", db, printInfo)
-                await find(samplesFolder + "2.mp3", db, printInfo)
-                await find(samplesFolder + "3.mp3", db, printInfo)
                 await find(samplesFolder + "x.mp3", db, printInfo)
                 await find(samplesFolder + "y.mp3", db, printInfo)
+
 
             })
 
@@ -55,7 +54,7 @@ async function find(mp3Path, db, printInfo) {
     return new Promise((reslove) => {
         const mp3 =
             new MP3(mp3Path, (fa) => {
-                const identifier2 = new Identifier(fa.slice(parseInt(Math.random() * 10000), 100000), "c");
+                const identifier2 = new Identifier(fa, "c");
                 Identifier.benchmark(() => {
                     identifier2.process();
                     if (printInfo) {

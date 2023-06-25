@@ -37,8 +37,9 @@ module.exports = class MP3 {
                     sum += channelData[channel][sample];
                 }
 
-                // Calculate the frequency as the average of the channel data
-                const frequency = (sum / numberOfChannels);
+                // Calculate the frequency as the average of the absolute channel data
+                const average = sum / numberOfChannels;
+                const frequency = Math.abs(average);
                 frequencyArray.push(frequency);
             }
 

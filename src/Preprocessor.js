@@ -1,22 +1,21 @@
-const FrequencyMod = 1000;
-const TimeIntervalPerBatch = 5000;//MS
-
+let FrequencyMod = 800;
+const GradientThreshold = 400;
+const MinimumDiff = 40;
 
 module.exports = class Preprocessor {
 
 
     static process(songFrequencyArray) {
         const processedArray = new Array();
-        const nArray = [];
-        const n = parseInt(songFrequencyArray.length / TimeIntervalPerBatch)
         for (let i = 0; i < songFrequencyArray.length; i++) {
             let MaxFrequency = 0;
+            let val = songFrequencyArray[i] * FrequencyMod;
 
-            const val = parseInt(songFrequencyArray[i] * FrequencyMod);
 
+            val = parseInt(val);
             //Comparing frequency gradient
 
-            if (Math.abs(MaxFrequency - val) > 400) {
+            if (Math.abs(MaxFrequency - val) > GradientThreshold) {
                 processedArray.push(i);
                 MaxFrequency = val;
             }
@@ -27,7 +26,8 @@ module.exports = class Preprocessor {
     static getOnlyDifference(processedArray) {
         const nArray = [];
         for (let i = 0; i < processedArray.length - 1; i++) {
-            if (Math.abs(processedArray[i + 1] - processedArray[i]) > 60)
+
+            if (Math.abs(processedArray[i + 1] - processedArray[i]) > MinimumDiff)
                 nArray.push(Math.abs(processedArray[i + 1] - processedArray[i]));
         }
         return nArray;
